@@ -1,0 +1,62 @@
+{
+  "name": "ui5-typescript-helloworld",
+  "version": "1.0.0",
+  "description": "Showcase of a TypeScript setup for developing UI5 applications",
+  "author": "Michael Alekseew - sovanta AG",
+  "license": "MIT",
+  "scripts": {
+    "prepare": "husky install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm-run-all build:ts build:ui5",
+    "build:opt": "npm-run-all build:ts build:ui5:opt",
+    "build:ts": "babel src --out-dir webapp --source-maps true --extensions \".ts,.js\" --copy-files",
+    "build:ui5": "ui5 build --clean-dest",
+    "build:ui5:opt": "ui5 build self-contained --clean-dest --all",
+    "start": "npm-run-all --parallel watch:ts start:ui5",
+    "watch": "npm-run-all --parallel watch:controls watch:ts start:ui5",
+    "watch:controls": "ts-interface-generator --watch",
+    "clear:generated": "shx rm **/*.gen.d.ts",
+    "watch:ts": "babel src --out-dir webapp --source-maps inline --extensions \".ts,.js\" --copy-files --watch",
+    "start:ui5": "ui5 serve --port 8080 -o index.html",
+    "start:dist": "ui5 serve  --port 8080 -o index.html --config ui5-dist.yaml",
+    "ts-typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "keywords": [
+    "ui5",
+    "typescript"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/openui5": "^1.101.0",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "@ui5/cli": "^2.14.8",
+    "@ui5/ts-interface-generator": "^0.5.0",
+    "babel-preset-transform-ui5": "^7.0.5",
+    "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.4.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.6.2",
+    "shx": "^0.3.4",
+    "typescript": "^4.6.3",
+    "ui5-middleware-livereload": "^0.5.11"
+  },
+  "ui5": {
+    "dependencies": [
+      "ui5-middleware-livereload"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,ts}": "eslint --cache --fix",
+    "*.{js,ts,css,md}": "prettier --write"
+  }
+}

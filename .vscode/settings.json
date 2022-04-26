@@ -1,0 +1,4 @@
+{
+  "ui5ts.manifestlocation": "src/manifest.json",
+  "SAP HANA Database Explorer.displaySapWebAnalyticsStartupNotification": false
+}
